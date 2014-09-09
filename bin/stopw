@@ -1,0 +1,139 @@
+#!perl
+
+# DATE
+# VERSION
+
+use 5.010001;
+use strict;
+use warnings;
+
+use Getopt::Long qw(:config auto_help auto_version);
+use Term::ReadKey;
+use Time::HiRes qw(time sleep);
+
+my %opts = (
+    update_delay=>0.01,
+);
+GetOptions(
+    'update-delay|d=f' => \$opts{update_delay},
+);
+
+# borrowed from Games::2048
+sub read_key {
+    my $self = shift;
+    state @keys;
+
+    if (@keys) {
+        return shift @keys;
+    }
+
+    my $char;
+    my $packet = '';
+    while (defined($char = ReadKey -1)) {
+        $packet .= $char;
+    }
+
+    while ($packet =~ m(
+                           \G(
+                               \e \[          # CSI
+                               [\x30-\x3f]*   # Parameter Bytes
+                               [\x20-\x2f]*   # Intermediate Bytes
+                               [\x40-\x7e]    # Final Byte
+                           |
+                               .              # Otherwise just any character
+                           )
+                   )gsx) {
+        push @keys, $1;
+    }
+
+    return shift @keys;
+}
+
+my $time0 = time();
+my $time;
+my $stopped;
+my $stoptime;
+$|++;
+ReadMode "cbreak";
+TIMER:
+while (1) {
+    while (defined(my $key = read_key())) {
+        if ($key eq 'q' || $key eq 'Q') {
+            print "\n";
+            last TIMER;
+        } elsif ($key eq ' ' || $key eq 'r' || $key eq 'R') {
+            print "\n";
+        } elsif ($key eq 'z' || $key eq 'Z') {
+            $time0 = time();
+            $time      = $time0 if $stopped;
+            $stoptime  = $time0 if $stopped;
+        } elsif ($key eq 's' || $key eq 'S') {
+            $stopped = !$stopped;
+            $stoptime = time() if $stopped;
+            $time0 += (time()-$stoptime) if !$stopped;
+        }
+    }
+
+    {
+        $time = time() unless $stopped;
+        my $elapsed = $time - $time0;
+        my $hours   = int( $elapsed/3600);
+        my $minutes = int(($elapsed-$hours*3600)/60);
+        my $seconds = int( $elapsed-$hours*3600-$minutes*60);
+        my $millis  = int(($elapsed-$hours*3600-$minutes*60-$seconds)*1000);
+
+        my $str = sprintf("%02d:%02d:%02d.%03d",
+                          $hours, $minutes, $seconds, $millis);
+        print $str;
+        sleep $opts{update_delay};
+        print "\x08" x length($str);
+    }
+}
+ReadMode "normal";
+
+# ABSTRACT: A console-based virtual stopwatch and timer
+# PODNAME: stopw
+
+=head1 SYNOPSIS
+
+ % stopw [options]
+
+See manpage for list of options.
+
+
+=head1 DESCRIPTION
+
+B<stopw> is a console-based virtual stopwatch and timer. After you run the
+program, you can press:
+
+=over
+
+=item * C<Z> to reset the timer back to zero
+
+=item * C<R> (or spacebar) to record time
+
+This will print the current value of timer and move to the next line.
+
+=item * C<S> to start/stop the timer
+
+=item * C<Q> (or Ctrl-C) to quit the program
+
+=back
+
+
+=head1 OPTIONS
+
+=head2 --update-delay, -d (float, default: 0.01)
+
+
+=head1 SEE ALSO
+
+L<App::Stopwatch> which includes the L<stopwatch> console utility. This utility
+is geared more towards executing a command after a specified time period.
+
+The B<stopwatch> Debian package, a graphical (Tk-based) virtual stopwatch and
+timer.
+
+The L<time> Unix command.
+
+=cut
