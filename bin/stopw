@@ -82,7 +82,7 @@ while (1) {
         my $seconds = int( $elapsed-$hours*3600-$minutes*60);
         my $millis  = int(($elapsed-$hours*3600-$minutes*60-$seconds)*1000);
 
-        my $str = sprintf("%02d:%02d:%02d.%03d",
+        my $str = sprintf("%02d:%02d:%02d.%03d ",
                           $hours, $minutes, $seconds, $millis);
         print $str;
         sleep $opts{update_delay};
