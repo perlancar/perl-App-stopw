@@ -67,7 +67,7 @@ while (1) {
             $time0 = time();
             $time      = $time0 if $stopped;
             $stoptime  = $time0 if $stopped;
-        } elsif ($key eq 's' || $key eq 'S') {
+        } elsif ($key eq "\n" || $key eq 's' || $key eq 'S') {
             $stopped = !$stopped;
             $stoptime = time() if $stopped;
             $time0 += (time()-$stoptime) if !$stopped;
@@ -114,7 +114,7 @@ program, you can press:
 
 This will print the current value of timer and move to the next line.
 
-=item * C<S> to start/stop the timer
+=item * C<S> (or Enter) to start/stop the timer
 
 =item * C<Q> (or Ctrl-C) to quit the program
 
