@@ -12,7 +12,7 @@ use Term::ReadKey;
 use Time::HiRes qw(time sleep);
 
 my %opts = (
-    update_delay=>0.01,
+    update_delay=>0.02,
 );
 GetOptions(
     'update-delay|d=f' => \$opts{update_delay},
@@ -123,7 +123,7 @@ This will print the current value of timer and move to the next line.
 
 =head1 OPTIONS
 
-=head2 --update-delay, -d (float, default: 0.01)
+=head2 --update-delay, -d (float, default: 0.02)
 
 
 =head1 SEE ALSO
