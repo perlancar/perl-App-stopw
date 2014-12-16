@@ -92,7 +92,7 @@ while (1) {
 ReadMode "normal";
 
 # ABSTRACT: A console-based virtual stopwatch and timer
-# PODNAME: stopw
+# PODNAME:
 
 =head1 SYNOPSIS
 
