@@ -1,3 +1,10 @@
+0.040   2019-06-23 (PERLANCAR)
+
+	- Add options: --start-at (-s), --start-stopped (-S).
+
+	- Tweak Getopt::Long configuration.
+
+
 0.03    2016-07-30 (PERLANCAR)
 
 	- Add option to show banner ASCII art of mm:ss instead
