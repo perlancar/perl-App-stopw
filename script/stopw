@@ -7,7 +7,7 @@ use 5.010001;
 use strict;
 use warnings;
 
-use Getopt::Long qw(:config auto_help auto_version);
+use Getopt::Long qw(:config gnu_getopt no_ignore_case auto_version);
 use Term::ReadKey;
 use Time::HiRes qw(time sleep);
 
@@ -19,6 +19,18 @@ Getopt::Long::Configure("bundling");
 GetOptions(
     'update-delay|d=f' => \$opts{update_delay},
     'banner-size|b=i'  => \$opts{banner_size},
+    'help|h|?' => sub {
+        print <<'_';
+Usage:
+  stopw [options]
+Options:
+  --update-delay=f (-d).  Defaults to 0.02.
+  --banner-size=i (-b).   Set 1-5 print large ASCII-art letters.
+
+For more details, see manpage.
+_
+        exit 0;
+    },
 );
 
 # borrowed from Games::2048
