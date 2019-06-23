@@ -8,11 +8,11 @@ package App::stopw;
 
 =head1 SYNOPSIS
 
-This distribution provides the C<stopw> command-line utility.
+This distribution provides the L<stopw> command-line utility.
 
 
 =head1 SEE ALSO
 
-L<stopw>
+L<stopwatch> from L<App::Stopwatch>
 
 =cut
