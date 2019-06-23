@@ -131,8 +131,6 @@ ReadMode "normal";
 
  % stopw [options]
 
-See manpage for list of options.
-
 
 =head1 DESCRIPTION
 
