@@ -20,14 +20,14 @@ Getopt::Long::Configure("bundling");
 GetOptions(
     'update-delay|d=f' => \$opts{update_delay},
     'banner-size|b=i'  => \$opts{banner_size},
-    'start-stopped|s'  => \$opts{start_stopped},
+    'start-stopped|S'  => \$opts{start_stopped},
     'help|h|?' => sub {
         print <<'_';
 Usage:
   stopw [options]
 Options:
   --banner-size=i (-b).   Set 1-5 print large ASCII-art letters.
-  --start-stopped, -s.    Start in stopped state.
+  --start-stopped, -S.    Start in stopped state.
   --update-delay=f (-d).  Defaults to 0.02.
 
 For more details, see manpage.
