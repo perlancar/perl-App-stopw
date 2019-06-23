@@ -14,18 +14,21 @@ use Time::HiRes qw(time sleep);
 my %opts = (
     update_delay => 0.02,
     banner_size  => 0,
+    start_stopped => 0,
 );
 Getopt::Long::Configure("bundling");
 GetOptions(
     'update-delay|d=f' => \$opts{update_delay},
     'banner-size|b=i'  => \$opts{banner_size},
+    'start-stopped|s'  => \$opts{start_stopped},
     'help|h|?' => sub {
         print <<'_';
 Usage:
   stopw [options]
 Options:
-  --update-delay=f (-d).  Defaults to 0.02.
   --banner-size=i (-b).   Set 1-5 print large ASCII-art letters.
+  --start-stopped, -s.    Start in stopped state.
+  --update-delay=f (-d).  Defaults to 0.02.
 
 For more details, see manpage.
 _
@@ -64,10 +67,10 @@ sub read_key {
     return shift @keys;
 }
 
-my $time0 = time();
-my $time;
-my $stopped;
-my $stoptime;
+my $time0    = time();
+my $time     = $time0;
+my $stoptime = $time0;
+my $stopped = $opts{start_stopped};
 $|++;
 ReadMode "cbreak";
 
@@ -173,6 +176,11 @@ This will print the current value of timer and move to the next line.
 If set to a number between 1-5, will print a large banner (ASCII-art) of
 C<mm:ss> digits instead of regular text (using L<Text::Banner>). This will also
 automatically set --update-delay to 1.
+
+=head2 --start-stopped (-s)
+
+Start in stopped state. You need to press a single Return to start the
+stopwatch.
 
 
 =head1 SEE ALSO
