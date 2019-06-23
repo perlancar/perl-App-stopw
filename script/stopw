@@ -154,15 +154,15 @@ program, you can press:
 
 =over
 
-=item * C<Z> to reset the timer back to zero
+=item * C<z> to reset the timer back to zero
 
-=item * C<R> (or spacebar) to record time
+=item * C<r> (or spacebar) to record time
 
 This will print the current value of timer and move to the next line.
 
-=item * C<S> (or Enter) to start/stop the timer
+=item * C<s> (or Enter) to start/stop the timer
 
-=item * C<Q> (or Ctrl-C) to quit the program
+=item * C<q> (or Ctrl-C) to quit the program
 
 =back
 
