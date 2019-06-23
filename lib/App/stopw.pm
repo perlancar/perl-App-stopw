@@ -10,9 +10,4 @@ package App::stopw;
 
 This distribution provides the L<stopw> command-line utility.
 
-
-=head1 SEE ALSO
-
-L<stopwatch> from L<App::Stopwatch>
-
 =cut
