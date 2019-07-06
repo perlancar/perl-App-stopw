@@ -37,6 +37,11 @@ For more details, see manpage.
 _
         exit 0;
     },
+    'version|v' => sub {
+        no warnings 'once';
+        say "stopw version ".(${__PACKAGE__."::VERSION"} // "dev");
+        exit 0;
+    },
 );
 
 # borrowed from Games::2048
