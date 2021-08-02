@@ -2,3 +2,4 @@ App-stopw-*
 .build
 *~
 nytprof*
+.DS_Store
